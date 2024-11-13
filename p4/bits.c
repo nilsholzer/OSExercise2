@@ -7,9 +7,10 @@
  */
 int getN(uint64_t *A, size_t n)
 {
-    (void) A;
-    (void) n;
-    return 42;
+    uint64_t element = A[n / 64];
+    uint64_t bit = n % 64;
+
+    return (element & (1 << bit)) >> bit;
 }
 
 /*
@@ -17,8 +18,10 @@ int getN(uint64_t *A, size_t n)
  */
 void setN(uint64_t *A, size_t n)
 {
-    (void) A;
-    (void) n;
+    uint64_t element = A[n / 64];
+    uint64_t bit = n % 64;
+
+    A[n / 64] = element | (1 << bit);
 }
 
 /*
@@ -26,8 +29,10 @@ void setN(uint64_t *A, size_t n)
  */
 void clrN(uint64_t *A, size_t n)
 {
-    (void) A;
-    (void) n;
+    uint64_t element = A[n / 64];
+    uint64_t bit = n % 64;
+
+    A[n / 64] = element & ~(1 << bit);
 }
 
 
@@ -36,8 +41,11 @@ void clrN(uint64_t *A, size_t n)
  */
 uint64_t rot(uint64_t i, int n)
 {
-    (void) i;
-    (void) n;
-
-    return 0;
+    if (n >= 0){
+        n = n % 64;
+        return (i >> n) | (i << (64 - n));
+    } else {
+        n = -n % 64;
+        return (i << n) | (i >> (64 -n));
+    }
 }
