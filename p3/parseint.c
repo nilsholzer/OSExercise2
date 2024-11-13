@@ -5,8 +5,10 @@
  */
 int parseDecimalChar(char c)
 {
-    (void)c;
-
+    if (c >= '0' && c <= '9')
+    {
+        return c - '0';
+    }
     return -1;
 }
 
@@ -16,7 +18,29 @@ int parseDecimalChar(char c)
  */
 int parseInt(char *string)
 {
-    (void)string;
-
-    return -1;
+    int charCount = 0;
+    int res = 0;
+    if (string[charCount] == '0')
+    {
+        while (string[charCount] != '\0')
+        {
+            if (parseDecimalChar(string[charCount]) == -1)
+            {
+                return -1;
+            }
+            res = res * 8 + parseDecimalChar(string[charCount]);
+            charCount++;
+        }
+    }
+    
+    while (string[charCount] != '\0')
+    {
+        if (parseDecimalChar(string[charCount]) == -1)
+        {
+            return -1;
+        }
+        res = res * 10 + parseDecimalChar(string[charCount]);
+        charCount++;
+    }   
+    return res;
 }
