@@ -41,6 +41,7 @@ int run_program(char *file_path, char *arguments[])
         /*narguments wird deklariert bei dem das erste element der file_path ist
         und das 2. Element die restlichen Argumente speichert
         Hier wird mittels memcpy alles von den Übergabeparametern in dem 2. Element gespeichert*/
+
         narguments[0] = file_path;
         memcpy(&narguments[1], arguments, sizeof(char*) * num);
 
@@ -56,6 +57,6 @@ int run_program(char *file_path, char *arguments[])
             return ERROR_CODE;
         }
 
-        return (WIFEXITED(status)) ? WIFEXITED(status) : ERROR_CODE;
+        return (WIFEXITED(status)) ? WEXITSTATUS(status) : ERROR_CODE;
     }
 }
